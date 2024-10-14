@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.artpon-app')
 
 @section('content')
 <div class="container">
