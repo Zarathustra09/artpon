@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back!</title>
+
+    <!-- Bootstrap and FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+     
+        @font-face {
+            font-family: 'BaksoSapi';
+            src: url('fonts/BaksoSapi.otf') format('opentype');
+        }
+
+        body {
+            font-family: 'BaksoSapi';
+            background-color: #fff8e9;
+            margin: 0;
+            padding: 0;
+        }
+       
+        /* Content */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+       /* Navbar */
+       .navbar {
+            background-color: #ee5353;
+            padding: 10px 20px;
+        }
+        .navbar-brand h1 {
+            font-family: 'BaksoSapi';
+            src: url('fonts/BaksoSapi.otf') format('opentype');
+            color: #fff8e9;
+            font-size: 28px;
+            margin: 0;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #fff8e9;
+            font-size: 18px;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #fff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #ee5353;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff8e9;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #d94444;
+            color: #fff;
+        }
+        
+        /* Profile and Notifications */
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ee5353;
+            border-radius: 5px;
+        }
+        .profile img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .profile h5 {
+            margin: 0;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #ee5353;
+            color: #fff8e9;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #000000;
+            color: #fff8e9;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                margin-left: 0;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .sidebar a {
+                float: left;
+                padding: 15px;
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        /* Notification and Settings Boxes */
+        .box {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+        .box-header {
+            background-color: #ee5353;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .box-body {
+            padding: 10px;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <h5>Welcome!</h5>
+        </div>
+        <a href="book.html"><i class="fas fa-calendar-check"></i> Book Now</a>
+        <a href="profile.php"><i class="fas fa-user"></i> My Profile</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="service.html"><i class="fas fa-concierge-bell"></i> Services</a>
+        <a href="bookhistory.html"><i class="fas fa-history"></i> Booking History</a>
+        <a href="paymentrecords.html"><i class="fas fa-money-check-alt"></i> Payment Records</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="index.html">
+                <h1>ARTpon StyroCraft</h1>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="notifications"><i class="fas fa-bell"></i> Notifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="settings"><i class="fas fa-cog"></i> Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Notifications Modal -->
+        <div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationsModalLabel">Notifications</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="notificationsContent">
+                        <!-- Notifications will load here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="settings-form">
+                            <div class="mb-3">
+                                <label for="emailNotifications" class="form-label">Email Notifications</label>
+                                <select id="emailNotifications" class="form-select" name="emailNotifications">
+                                    <option value="enabled">Enabled</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="theme" class="form-label">Theme</label>
+                                <select id="theme" class="form-select" name="theme">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Overview -->
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Upcoming Bookings</h5>
+                        </div>
+                        <div class="card-body" id="upcomingBookings">
+                            <!-- Upcoming bookings will load here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Total Bookings</h5>
+                        </div>
+                        <div class="card-body" id="totalBookings">
+                            <!-- Total bookings will load here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Messages</h5>
+                        </div>
+                        <div class="card-body" id="messages">
+                            <!-- Messages will load here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+                <!-- Product Gallery Start -->
+                <div class="container-fluid py-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 class="text-center mb-4">Product Gallery</h2>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/logos.jpg" class="card-img-top" alt="Product 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Logos</h5>
+                                            <p class="card-text">P500 - P1,000</p>
+                                            <a href="product1.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/backdrop.jpg" class="card-img-top" alt="Product 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">BackDrops</h5>
+                                            <p class="card-text">P2,000 - P5,000</p>
+                                            <a href="product2.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/styronames.jpg" class="card-img-top" alt="Product 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Premium StyroNames</h5>
+                                            <p class="card-text">P80.00 per letter</p>
+                                            <a href="product3.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/snowite.jpg" class="card-img-top" alt="Product 4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Cartoon Characters</h5>
+                                            <p class="card-text">P500.00 - P2,000</p>
+                                            <a href="product4.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/painting.jpg" class="card-img-top" alt="Product 5">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Paintings</h5>
+                                            <p class="card-text">P1,000 - P5,000</p>
+                                            <a href="product5.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card">
+                                        <img src="/frontend/sketch.jpg" class="card-img-top" alt="Product 6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sketch</h5>
+                                            <p class="card-text">P200.00 - P500.00</p>
+                                            <a href="product6.html" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Gallery End -->
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; ARTpon StyroCraft. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Show notifications modal and fetch notifications
+            $('#notifications').click(function () {
+                var notificationsModal = new bootstrap.Modal(document.getElementById('notificationsModal'));
+                notificationsModal.show();
+
+                $.ajax({
+                    url: 'fetch_notifications.php',
+                    method: 'GET',
+                    success: function (data) {
+                        var notifications = JSON.parse(data);
+                        var content = '';
+                        if (notifications.length > 0) {
+                            notifications.forEach(function (notification) {
+                                content += '<p>' + notification.message + ' (' + notification.date + ')</p>';
+                            });
+                        } else {
+                            content = '<p>No new notifications.</p>';
+                        }
+                        $('#notificationsContent').html(content);
+                    }
+                });
+            });
+
+            // Show settings modal
+            $('#settings').click(function () {
+                var settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
+                settingsModal.show();
+            });
+
+            // Update settings via AJAX
+            $('#settings-form').submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: 'update_settings.php',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        if (result.status === 'success') {
+                            alert('Settings updated successfully!');
+                        } else {
+                            alert('Error updating settings.');
+                        }
+                    }
+                });
+            });
+
+            // Fetch real-time data for bookings and messages
+            function fetchBookings() {
+                $.ajax({
+                    url: 'fetch_bookings.php',
+                    method: 'GET',
+                    success: function (data) {
+                        var bookings = JSON.parse(data);
+                        $('#upcomingBookings').html('<p>You have ' + bookings.upcoming + ' upcoming bookings.</p>');
+                        $('#totalBookings').html('<p>Total Bookings: ' + bookings.total + '</p>');
+                    }
+                });
+            }
+
+            function fetchMessages() {
+                $.ajax({
+                    url: 'fetch_messages.php',
+                    method: 'GET',
+                    success: function (data) {
+                        var messages = JSON.parse(data);
+                        $('#messages').html('<p>You have ' + messages.new + ' new messages.</p>');
+                    }
+                });
+            }
+
+            fetchBookings();
+            fetchMessages();
+
+            // Optionally, refresh data every 30 seconds
+            setInterval(function () {
+                fetchBookings();
+                fetchMessages();
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
