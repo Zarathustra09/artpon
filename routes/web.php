@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +79,15 @@ Route::get('/admin/payment', function () {
     return view(view: 'admin.payment');
 })->name(name: 'artpons.admin.payment');
 
-Route::get('/admin/product', function () {
-    return view(view: 'admin.product');
-})->name(name: 'artpons.admin.product');
+
+//admin product
+Route::get('/admin/product', [AdminProductController::class,'index'])->name(name: 'artpons.admin.product');
+Route::get('/admin/products/data', [AdminProductController::class, 'dataTable'])->name('admin.products.data');
+Route::post('/admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
+Route::get('/admin/products/{id}', [AdminProductController::class, 'edit']);
+Route::put('/admin/products/{id}', [AdminProductController::class, 'update']);
+Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy']);
+
+//customer admin
+Route::get('/admin/customers', [AdminCustomerController::class, 'index'])->name('admin.customers.index');
+Route::get('/admin/customers/data', [AdminCustomerController::class, 'dataTable'])->name('admin.customers.data');
