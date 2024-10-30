@@ -7,6 +7,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -29,6 +32,7 @@
         .navbar-brand h1 {
             font-family: 'BaksoSapi', cursive;
             color: #fff8e9;
+            margin-bottom: 0;
         }
 
         .navbar-toggler {
@@ -36,17 +40,40 @@
             background-color: #fff;
         }
 
-        .navbar .nav-link,
-        .navbar .dropdown-item {
-            color: #050505;
+        .navbar .nav-link {
+            color: #fff8e9;
+            padding: 0.5rem 1rem;
+            transition: opacity 0.3s;
         }
 
-        .navbar .dropdown-item {
-            color: #000;
+        .navbar .nav-link:hover {
+            opacity: 0.8;
+            color: #fff8e9;
+            text-decoration: none;
         }
 
-        .navbar .dropdown-menu {
-            background-color: #fff;
+        .nav-auth-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .auth-link {
+            color: #fff8e9;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .auth-link:hover {
+            color: #fff8e9;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .auth-link.register {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .form-container {
@@ -108,6 +135,17 @@
         .footer p {
             margin: 0;
         }
+
+        @media (max-width: 768px) {
+            .nav-auth-links {
+                margin-top: 1rem;
+            }
+
+            .navbar-nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 
@@ -115,17 +153,42 @@
 
 <div class="container-fluid nav-bar">
     <div class="container">
-        <nav class="navbar navbar-light navbar-expand-lg py-4">
+        <nav class="navbar navbar-expand-lg py-4">
             <a href="{{ url('/') }}" class="navbar-brand">
-                <h1 class="text-#f0e2c1">ARTpon StyroCraft</h1>
+                <h1>ARTpon StyroCraft</h1>
             </a>
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('about') }}">About ARTpon StyroCrafts</a>
-                    <a class="dropdown-item" href="https://web.facebook.com/theARTpon">Contact Us</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto nav-auth-links">
+                    <a href="https://web.facebook.com/theARTpon" class="nav-link">About</a>
+                    <a href="{{ url('contact') }}" class="nav-link">Contact</a>
+
+                    @guest
+                        <a href="{{ route('login') }}" class="auth-link">Login</a>
+                        <a href="{{ route('register') }}" class="auth-link register">Register</a>
+                    @else
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -138,9 +201,8 @@
     <p>&copy; 2024 ARTpon StyroCraft. All rights reserved.</p>
 </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap 5 JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

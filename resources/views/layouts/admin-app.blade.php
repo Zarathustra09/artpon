@@ -178,13 +178,13 @@
     <div class="profile">
         <h5>Welcome!</h5>
     </div>
-    <a href="/booking"><i class="fas fa-calendar-check"></i> Book Now</a>
-{{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
-    <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
-{{--    <a href="/service"><i class="fas fa-concierge-bell"></i> Services</a>--}}
-    <a href="/booking_history"><i class="fas fa-history"></i> Booking History</a>
-    <a href="/payment_history"><i class="fas fa-money-check-alt"></i> Payment Records</a>
-    <a href="/track"><i class="fas fa-search"></i> Track Orders</a>
+    <a href="{{route('artpons.admin.dashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="{{route('artpons.admin.customer')}}"><i class="fas fa-users"></i> Customer</a>
+    {{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
+    <a href="{{route('artpons.admin.product')}}"><i class="fas fa-box"></i> Products</a>
+    {{--    <a href="/service"><i class="fas fa-concierge-bell"></i> Services</a>--}}
+    <a href="{{route('artpons.admin.booking')}}"><i class="fas fa-calendar-alt"></i> Bookings</a>
+    <a href="{{route('artpons.admin.payment')}}"><i class="fas fa-credit-card"></i> Payments</a>
 </div>
 
 <!-- Content -->
@@ -220,9 +220,9 @@
     <!-- Settings Box -->
     <div class="box" id="settingsBox">
         <div class="box-header">Settings</div>
-{{--        <div class="box-body">--}}
-{{--            <p>Settings content here.</p>--}}
-{{--        </div>--}}
+        {{--        <div class="box-body">--}}
+        {{--            <p>Settings content here.</p>--}}
+        {{--        </div>--}}
         <div class="box-body">
             <a href="{{route('artpons.profile')}}" class="btn btn-primary">My Profile</a>
         </div>
@@ -251,7 +251,7 @@
         <p>&copy; ARTpon StyroCraft. All Rights Reserved.</p>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -306,19 +306,19 @@
         }
     });
 </script>
-    <script>
-        @if (session('success'))
-        Swal.fire({
+<script>
+    @if (session('success'))
+    Swal.fire({
         icon: 'success',
         title: 'Success',
         text: '{{ session('success') }}',
         timer: 3000,
         showConfirmButton: false
     });
-        @endif
+    @endif
 
-        @if (session('error'))
-        Swal.fire({
+    @if (session('error'))
+    Swal.fire({
         icon: 'error',
         title: 'Error',
         text: '{{ session('error') }}',

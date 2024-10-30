@@ -5,7 +5,7 @@
     <div class="container my-5">
         <div class="payment-records">
             <h2>Payment History</h2>
-            <table class="payment-table">
+            <table class="payment-table" id="paymentTable">
                 <thead>
                 <tr>
                     <th>Payment ID</th>
@@ -22,14 +22,14 @@
                     <td>001</td>
                     <td>2024-06-01</td>
                     <td>Custom Styrofoam Sculpture</td>
-                    <td>$100</td>
+                    <td>₱100</td>
                     <td>Paid</td>
                 </tr>
                 <tr>
                     <td>002</td>
                     <td>2024-06-05</td>
                     <td>Premium Styrofoam Art</td>
-                    <td>$150</td>
+                    <td>₱150</td>
                     <td>Paid</td>
                 </tr>
                 <!-- End of example rows -->
@@ -39,3 +39,11 @@
     </div>
     <!-- Payment Records End -->
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#paymentTable').DataTable();
+        });
+    </script>
+@endpush
