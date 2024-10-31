@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\BookingController;
@@ -91,3 +92,8 @@ Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy']
 //customer admin
 Route::get('/admin/customers', [AdminCustomerController::class, 'index'])->name('admin.customers.index');
 Route::get('/admin/customers/data', [AdminCustomerController::class, 'dataTable'])->name('admin.customers.data');
+
+
+//admin booking
+
+Route::get('/admin/bookings/data', [AdminBookingController::class, 'dataTable'])->name('admin.bookings.data');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +11,8 @@ class BookingController extends Controller
 {
     public function index()
     {
-        return view('guest.booking');
+        $services = Service::with('products')->get();
+        return view('guest.booking', compact('services'));
     }
 
     public function bookingHistoryIndex()

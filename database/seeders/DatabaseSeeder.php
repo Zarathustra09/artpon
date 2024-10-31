@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             'role' => 1,
         ]);
 
+        User::factory()->create([
+            'name' => 'Joshua Pardo',
+            'email' => 'zaratheal@gmail.com',
+            'password'=> Hash::make('Test@123'),
+            'role' => 0,
+        ]);
+
         $this->call([
             ServiceSeeder::class,
             ProductSeeder::class,

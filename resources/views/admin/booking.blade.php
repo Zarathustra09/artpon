@@ -11,16 +11,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>Completed</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>Pending</td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -29,7 +19,17 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#bookingTable').DataTable();
+            $('#bookingTable').DataTable({
+                ajax: {
+                    url: '{{ route('admin.bookings.data') }}',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'user.name' },
+                    { data: 'status' }
+                ]
+            });
         });
     </script>
 @endpush

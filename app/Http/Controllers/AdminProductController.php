@@ -24,8 +24,7 @@ class AdminProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'min_price' => 'required|numeric',
-            'max_price' => 'required|numeric',
+            'price' => 'required|numeric',
             'service_id' => 'required|exists:services,id',
             'stock' => 'required|integer'
         ]);
@@ -35,18 +34,11 @@ class AdminProductController extends Controller
         return response()->json(['success' => 'Product added successfully']);
     }
 
-    public function edit($id)
-    {
-        $product = Product::with('service')->findOrFail($id);
-        return response()->json($product);
-    }
-
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'min_price' => 'required|numeric',
-            'max_price' => 'required|numeric',
+            'price' => 'required|numeric',
             'service_id' => 'required|exists:services,id',
             'stock' => 'required|integer'
         ]);
@@ -56,6 +48,15 @@ class AdminProductController extends Controller
 
         return response()->json(['success' => 'Product updated successfully']);
     }
+
+
+
+    public function edit($id)
+    {
+        $product = Product::with('service')->findOrFail($id);
+        return response()->json($product);
+    }
+
 
     public function destroy($id)
     {

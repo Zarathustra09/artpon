@@ -27,7 +27,12 @@
                 columns: [
                     { data: 'id' },
                     { data: 'name' },
-                    { data: 'email' }
+                    {
+                        data: 'email',
+                        render: function(data, type, row) {
+                            return `<a href="mailto:${data}">${data}</a>`;
+                        }
+                    }
                 ]
             });
         });

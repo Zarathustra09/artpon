@@ -18,46 +18,15 @@
                     <label for="service">Select Service:</label>
                     <select class="form-control" id="service" name="service" required>
                         <option selected disabled>---</option>
-                        <option value="Styrofoam Arts">Styrofoam Arts</option>
-                        <option value="Paintings">Paintings</option>
-                        <option value="Props">Props</option>
-                        <option value="Costumes">Costumes</option>
-                        <option value="Backdrops">Backdrops</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="product">Select Product:</label>
                     <select id="product" name="product" class="form-control" required>
                         <option selected disabled>---</option>
-                        <!-- For Styrofoam Arts -->
-                        <option value="custom-styrofoam-sculpture">Customized Styrofoam Sculptures</option>
-                        <option value="decorative-styrofoam-art">Decorative Styrofoam Art</option>
-                        <option value="themed-styrofoam-figures">Themed Styrofoam Figures</option>
-                        <option value="event-specific-styrofoam-decorations">Event-Specific Styrofoam Decorations</option>
-
-                        <!-- For Paintings -->
-                        <option value="landscape-painting">Landscape Paintings</option>
-                        <option value="portrait-painting">Portrait Paintings</option>
-                        <option value="abstract-painting">Abstract Paintings</option>
-                        <option value="custom-commissioned-painting">Custom Commissioned Paintings</option>
-
-                        <!-- For Props -->
-                        <option value="themed-event-props">Themed Event Props</option>
-                        <option value="stage-props">Stage Props</option>
-                        <option value="photo-booth-props">Photo Booth Props</option>
-                        <option value="custom-props">Custom Props</option>
-
-                        <!-- For Costumes -->
-                        <option value="themed-costume">Themed Costumes</option>
-                        <option value="custom-costume">Custom Costumes</option>
-                        <option value="costume-accessories">Costume Accessories</option>
-                        <option value="event-specific-costume">Event-Specific Costumes</option>
-
-                        <!-- For Backdrops -->
-                        <option value="wedding-backdrop">Wedding Backdrops</option>
-                        <option value="birthday-backdrop">Birthday Party Backdrops</option>
-                        <option value="photo-studio-backdrop">Photo Studio Backdrops</option>
-                        <option value="customizable-event-backdrop">Customizable Event Backdrops</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -103,3 +72,28 @@
     </div>
     <!-- Combined Order Customization and Booking Form End -->
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#service').change(function() {
+                var serviceId = $(this).val();
+                var products = @json($services->pluck('products', 'id'));
+                $('#product').empty().append('<option selected disabled>---</option>');
+                if (products[serviceId]) {
+                    products[serviceId].forEach(function(product) {
+                        $('#product').append('<option value="' + product.id + '">' + product.name + '</option>');
+                    });
+                }
+            });
+
+            $('#delivery_option').change(function() {
+                if ($(this).val() === 'Deliver') {
+                    $('#deliveryAddressField').show();
+                } else {
+                    $('#deliveryAddressField').hide();
+                }
+            });
+        });
+    </script>
+@endpush

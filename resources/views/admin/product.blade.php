@@ -8,8 +8,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Min Price</th>
-                <th>Max Price</th>
+                <th>Price</th>
                 <th>Service</th>
                 <th>Stock</th>
                 <th>Actions</th>
@@ -32,8 +31,7 @@
                 columns: [
                     { data: 'id' },
                     { data: 'name' },
-                    { data: 'min_price' },
-                    { data: 'max_price' },
+                    { data: 'price' },
                     { data: 'service.name' },
                     { data: 'stock' },
                     {
@@ -58,8 +56,7 @@
                         title: 'Add Product',
                         html: `
                 <input type="text" id="name" class="swal2-input" placeholder="Name">
-                <input type="number" id="min_price" class="swal2-input" placeholder="Min Price">
-                <input type="number" id="max_price" class="swal2-input" placeholder="Max Price">
+                <input type="number" id="price" class="swal2-input" placeholder="Price">
                 <select id="service_id" class="swal2-input">
                     @foreach($services as $service)
                         <option value="{{ $service->id }}">{{ $service->name }}</option>
@@ -71,14 +68,13 @@
                         focusConfirm: false,
                         preConfirm: () => {
                             const name = Swal.getPopup().querySelector('#name').value;
-                            const min_price = Swal.getPopup().querySelector('#min_price').value;
-                            const max_price = Swal.getPopup().querySelector('#max_price').value;
+                            const price = Swal.getPopup().querySelector('#price').value;
                             const service_id = Swal.getPopup().querySelector('#service_id').value;
                             const stock = Swal.getPopup().querySelector('#stock').value;
-                            if (!name || !min_price || !max_price || !service_id || !stock) {
+                            if (!name || !price || !service_id || !stock) {
                                 Swal.showValidationMessage(`Please enter all fields`);
                             }
-                            return { name: name, min_price: min_price, max_price: max_price, service_id: service_id, stock: stock };
+                            return { name: name, price: price, service_id: service_id, stock: stock };
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -88,8 +84,7 @@
                                 data: {
                                     _token: '{{ csrf_token() }}',
                                     name: result.value.name,
-                                    min_price: result.value.min_price,
-                                    max_price: result.value.max_price,
+                                    price: result.value.price,
                                     service_id: result.value.service_id,
                                     stock: result.value.stock
                                 },
@@ -116,8 +111,7 @@
                             title: 'Edit Product',
                             html: `
                                 <input type="text" id="name" class="swal2-input" placeholder="Name" value="${product.name}">
-                                <input type="number" id="min_price" class="swal2-input" placeholder="Min Price" value="${product.min_price}">
-                                <input type="number" id="max_price" class="swal2-input" placeholder="Max Price" value="${product.max_price}">
+                                <input type="number" id="price" class="swal2-input" placeholder="Price" value="${product.price}">
                                 <select id="service_id" class="swal2-input">
                                     @foreach($services as $service)
                             <option value="{{ $service->id }}" ${product.service_id == {{ $service->id }} ? 'selected' : ''}>{{ $service->name }}</option>
@@ -129,14 +123,13 @@
                             focusConfirm: false,
                             preConfirm: () => {
                                 const name = Swal.getPopup().querySelector('#name').value;
-                                const min_price = Swal.getPopup().querySelector('#min_price').value;
-                                const max_price = Swal.getPopup().querySelector('#max_price').value;
+                                const price = Swal.getPopup().querySelector('#price').value;
                                 const service_id = Swal.getPopup().querySelector('#service_id').value;
                                 const stock = Swal.getPopup().querySelector('#stock').value;
-                                if (!name || !min_price || !max_price || !service_id || !stock) {
+                                if (!name || !price || !service_id || !stock) {
                                     Swal.showValidationMessage(`Please enter all fields`);
                                 }
-                                return { name: name, min_price: min_price, max_price: max_price, service_id: service_id, stock: stock };
+                                return { name: name, price: price, service_id: service_id, stock: stock };
                             }
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -146,8 +139,7 @@
                                     data: {
                                         _token: '{{ csrf_token() }}',
                                         name: result.value.name,
-                                        min_price: result.value.min_price,
-                                        max_price: result.value.max_price,
+                                        price: result.value.price,
                                         service_id: result.value.service_id,
                                         stock: result.value.stock
                                     },

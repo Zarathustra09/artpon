@@ -20,6 +20,7 @@ class Booking extends Model
         'message',
         'delivery_option',
         'delivery_address',
+        'status',
     ];
 
     /**
