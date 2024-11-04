@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('event_type');
             $table->date('date');
             $table->text('message')->nullable();
-            $table->enum('status', ['Pending', 'Approved', 'Declined'])->default('Pending');
+            $table->string('status')->default('pending');
             $table->enum('delivery_option', ['Pickup', 'Deliver']);
             $table->text('delivery_address')->nullable();
             $table->timestamps();

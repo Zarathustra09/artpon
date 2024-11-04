@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,14 +23,9 @@ Route::get('/', function () {
     return view(view: 'welcome'); // 'register' corresponds to 'register.blade.php'
 });
 
-Route::get('/dashboard', function () {
-    return view(view: 'guest.user_dashboard'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.dashboard');
-
-
+Route::get('/dashboard', [GuestController::class, 'index'])->name('artpons.dashboard');
 
 Route::get('/booking_history', [BookingController::class, 'bookingHistoryIndex'])->name('artpons.booking_history');
-
 Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 
@@ -99,4 +96,8 @@ Route::get('/admin/customers/data', [AdminCustomerController::class, 'dataTable'
 
 
 //admin booking
+Route::get('/admin/bookings/index', [AdminBookingController::class, 'index'])->name('admin.bookings.index');
 Route::get('/admin/bookings/data', [AdminBookingController::class, 'dataTable'])->name('admin.bookings.data');
+
+Route::get('/admin/payment/index', [AdminPaymentController::class, 'index'])->name('admin.payments.index');
+Route::get('/admin/payment/data', [AdminPaymentController::class, 'dataTable'])->name('admin.payments.data');

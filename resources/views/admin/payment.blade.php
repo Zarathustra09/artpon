@@ -6,21 +6,12 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>Order Id</th>
                 <th>Amount</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>₱100</td>
-                <td>Paid</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>₱200</td>
-                <td>Unpaid</td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -29,7 +20,23 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#paymentTable').DataTable();
+            $('#paymentTable').DataTable({
+                ajax: {
+                    url: '{{ route('admin.payments.data') }}',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'external_id', title: 'Order Id' },
+                    {
+                        data: 'total',
+                        render: function(data, type, row) {
+                            return '₱' + data;
+                        }
+                    },
+                    { data: 'status' }
+                ]
+            });
         });
     </script>
 @endpush

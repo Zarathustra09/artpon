@@ -178,6 +178,7 @@
     <div class="profile">
         <h5>Welcome!</h5>
     </div>
+    <a href="{{ route('artpons.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
     <a href="/booking"><i class="fas fa-calendar-check"></i> Book Now</a>
 {{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
     <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>

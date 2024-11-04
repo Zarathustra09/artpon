@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -106,10 +107,16 @@ class PaymentController extends Controller
 
         $external_id = $request->input('external_id');
         $payment = Payment::where('external_id', $external_id)->first();
+        $booking = Booking::find($payment->booking_id);
 
         if ($payment) {
             $payment->status = 'paid';
             $payment->save();
+        }
+
+        if ($booking) {
+            $booking->status = 'paid';
+            $booking->save();
         }
 
         return redirect()->route('artpons.payment_history')->with('success', 'Payment successful.');
