@@ -50,6 +50,27 @@
         .service-card.selected, .product-card.selected {
             border-color: #007bff;
         }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            border-radius: 0.25rem;
+        }
+
+        .form-group .form-control {
+            padding: 0.75rem;
+        }
+
+        .form-group .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
     </style>
 
     <!-- Hero Section -->
@@ -69,6 +90,7 @@
             <div class="step-circle" onclick="displayStep(2)">2</div>
             <div class="step-circle" onclick="displayStep(3)">3</div>
             <div class="step-circle" onclick="displayStep(4)">4</div>
+            <div class="step-circle" onclick="displayStep(5)">5</div>
         </div>
 
         <form id="multi-step-form" action="{{ route('booking.store') }}" method="post">
@@ -101,6 +123,7 @@
                         <!-- Product cards will be dynamically added here -->
                     </div>
                     <input type="hidden" id="product" name="product" required>
+                    <input type="hidden" id="product_price" name="product_price">
                 </div>
                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                 <button type="button" class="btn btn-primary next-step">Next</button>
@@ -112,17 +135,17 @@
                     <div class="col-md-6">
                         <div class="card shadow-sm mb-4">
                             <div class="card-body">
-                                <h5 class="card-title">Select Color</h5>
-                                <input type="color" id="color" name="color" class="form-control mt-3" required>
+                                <label for="color">Select Color:</label>
+                                <input type="color" id="color" name="color" class="form-control" required>
                             </div>
                         </div>
                     </div>
-
+                    <input type="hidden" id="price" name="price" value="">
                     <div class="col-md-6">
                         <div class="card shadow-sm mb-4">
                             <div class="card-body">
-                                <h5 class="card-title">Event Theme</h5>
-                                <input type="text" id="theme" name="theme" class="form-control mt-3" placeholder="Optional">
+                                <label for="theme">Enter Theme (if any):</label>
+                                <input type="text" id="theme" name="theme" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -145,7 +168,6 @@
                     <button type="button" class="btn btn-primary next-step">Next</button>
                 </div>
             </div>
-
 
             <div class="step step-4">
                 <h3 class="mb-4">Step 4: Finalize Your Booking</h3>
@@ -183,9 +205,107 @@
 
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-outline-primary prev-step">Previous</button>
+                    <button type="button" class="btn btn-primary next-step">Next</button>
+                </div>
+            </div>
+
+            <div class="step step-5">
+                <h3>Step 5: Checkout</h3>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Summary</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Service</h6>
+                                        <p id="summary_service" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Product</h6>
+                                        <p id="summary_product" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Color</h6>
+                                        <p id="summary_color" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Event Theme</h6>
+                                        <p id="summary_theme" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Event Type</h6>
+                                        <p id="summary_event_type" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Event Date</h6>
+                                        <p id="summary_date" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Additional Message</h6>
+                                        <p id="summary_message" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Delivery Option</h6>
+                                        <p id="summary_delivery_option" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="summary_delivery_address_field" style="display: none;">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Delivery Address</h6>
+                                        <p id="summary_delivery_address" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Total Amount</h6>
+                                        <p id="total" class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-primary prev-step">Previous</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
+
 
         </form>
     </div>
@@ -198,7 +318,7 @@
         var updateProgressBar;
 
         function displayStep(stepNumber) {
-            if (stepNumber >= 1 && stepNumber <= 4) {
+            if (stepNumber >= 1 && stepNumber <= 5) {
                 $(".step-" + currentStep).hide();
                 $(".step-" + stepNumber).show();
                 currentStep = stepNumber;
@@ -210,14 +330,19 @@
             $('#multi-step-form').find('.step').slice(1).hide();
 
             $(".next-step").click(function() {
-                if (currentStep < 4) {
-                    $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
-                    currentStep++;
-                    setTimeout(function() {
-                        $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
-                        $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
-                        updateProgressBar();
-                    }, 500);
+                if (validateStep(currentStep)) {
+                    if (currentStep < 5) {
+                        $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+                        currentStep++;
+                        setTimeout(function() {
+                            $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+                            $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+                            updateProgressBar();
+                            if (currentStep === 5) {
+                                populateSummary();
+                            }
+                        }, 500);
+                    }
                 }
             });
 
@@ -233,8 +358,28 @@
                 }
             });
 
+            function validateStep(step) {
+                var isValid = true;
+                $(".step-" + step + " [required]").each(function() {
+                    if ($(this).val() === "" || $(this).val() === null) {
+                        isValid = false;
+                        $(this).addClass("is-invalid");
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Required Field',
+                            text: 'Please fill out this field.',
+                            confirmButtonText: 'OK'
+                        });
+                        return false; // Break the loop
+                    } else {
+                        $(this).removeClass("is-invalid");
+                    }
+                });
+                return isValid;
+            }
+
             updateProgressBar = function() {
-                var progressPercentage = ((currentStep - 1) / 3) * 100;
+                var progressPercentage = ((currentStep - 1) / 4) * 100;
                 $(".progress-bar").css("width", progressPercentage + "%");
             }
 
@@ -252,9 +397,10 @@
                     products[serviceId].forEach(function(product) {
                         $('#product-cards').append(
                             '<div class="col-md-4 mb-3">' +
-                            '<div class="card product-card" data-product-id="' + product.id + '">' +
+                            '<div class="card product-card" data-product-id="' + product.id + '" data-price="' + product.price + '">' +
                             '<div class="card-body text-center">' +
                             '<h5 class="card-title">' + product.name + '</h5>' +
+                            '<p class="card-text">₱' + product.price + '</p>' +
                             '</div>' +
                             '</div>' +
                             '</div>'
@@ -267,6 +413,9 @@
                 $('.product-card').removeClass('selected');
                 $(this).addClass('selected');
                 $('#product').val($(this).data('product-id'));
+                $('#product_price').val($(this).data('price'));
+                $('#price').val($(this).data('price')); // Set the hidden price input field
+                $('#total').text('₱' + $(this).data('price')); // Display the price
             });
 
             $('#delivery_option').change(function() {
@@ -276,6 +425,31 @@
                     $('#deliveryAddressField').hide();
                 }
             });
+
+            function populateSummary() {
+                $('#summary_service').text($('.service-card.selected .card-title').text());
+                $('#summary_product').text($('.product-card.selected .card-title').text());
+
+                // Display the color representation
+                var colorValue = $('#color').val();
+                $('#summary_color').css('background-color', colorValue).text(colorValue);
+
+                $('#summary_theme').text($('#theme').val());
+                $('#summary_event_type').text($('#eventType').val());
+                $('#summary_date').text($('#date').val());
+                $('#summary_message').text($('#message').val());
+                $('#summary_delivery_option').text($('#delivery_option').val());
+
+                if ($('#delivery_option').val() === 'Deliver') {
+                    $('#summary_delivery_address').text($('#delivery_address').val());
+                    $('#summary_delivery_address_field').show();
+                } else {
+                    $('#summary_delivery_address_field').hide();
+                }
+
+                // Ensure the total amount is populated correctly
+                $('#total').text('₱' + $('#product_price').val());
+            }
         });
     </script>
 @endpush

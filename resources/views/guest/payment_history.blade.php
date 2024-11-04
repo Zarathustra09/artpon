@@ -16,23 +16,15 @@
                 </tr>
                 </thead>
                 <tbody id="paymentHistory">
-                <!-- Example rows -->
-                <!-- These rows should be dynamically populated -->
-                <tr>
-                    <td>001</td>
-                    <td>2024-06-01</td>
-                    <td>Custom Styrofoam Sculpture</td>
-                    <td>₱100</td>
-                    <td>Paid</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>2024-06-05</td>
-                    <td>Premium Styrofoam Art</td>
-                    <td>₱150</td>
-                    <td>Paid</td>
-                </tr>
-                <!-- End of example rows -->
+                @foreach($payments as $payment)
+                    <tr>
+                        <td>{{ $payment->id }}</td>
+                        <td>{{ $payment->created_at->format('Y-m-d') }}</td>
+                        <td>{{ $payment->service }}</td>
+                        <td>₱{{ number_format($payment->total, 2) }}</td>
+                        <td>{{ ucfirst($payment->status) }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

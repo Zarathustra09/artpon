@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -32,6 +33,11 @@ Route::get('/booking', [BookingController::class, 'index'])->name('booking.index
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 
 
+//payment
+Route::post('/payment/checkout', [PaymentController::class, 'store'])->name('payment.checkout');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
+
 Route::get('/contact', function () {
     return view(view: 'guest.contact'); // 'register' corresponds to 'register.blade.php'
 })->name(name: 'artpons.contact');
@@ -40,9 +46,7 @@ Route::get('/payment', function () {
     return view(view: 'payment'); // 'register' corresponds to 'register.blade.php'
 })->name(name: 'artpons.payment');
 
-Route::get('/payment_history', function () {
-    return view(view: 'guest.payment_history'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.payment_history');
+Route::get('/payment_history', [PaymentController::class, 'index'])->name(name: 'artpons.payment_history');
 
 Route::get('/profile', function () {
     return view(view: 'guest.profile'); // 'register' corresponds to 'register.blade.php'
@@ -95,5 +99,4 @@ Route::get('/admin/customers/data', [AdminCustomerController::class, 'dataTable'
 
 
 //admin booking
-
 Route::get('/admin/bookings/data', [AdminBookingController::class, 'dataTable'])->name('admin.bookings.data');
