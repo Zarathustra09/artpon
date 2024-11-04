@@ -37,6 +37,7 @@ class BookingController extends Controller
             'delivery_option' => 'required|in:Pickup,Deliver',
             'delivery_address' => 'nullable|string',
             'price' => 'required|numeric',
+
         ]);
 
         $service = Service::find($request->input('service'));

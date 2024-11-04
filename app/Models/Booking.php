@@ -31,6 +31,22 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the service associated with the booking.
+     */
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service');
+    }
+
+    /**
+     * Get the product associated with the booking.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product');
+    }
+
     public function payment()
     {
         return $this->hasOne(Payment::class);

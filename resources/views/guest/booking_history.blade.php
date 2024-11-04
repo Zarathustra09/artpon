@@ -21,23 +21,29 @@
                         <th>Theme</th>
                         <th>Event Type</th>
                         <th>Date</th>
-                        <th>Order Details</th>
-                        <th>Pickup/Delivery</th>
-                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody id="bookingHistoryTable">
                     @foreach($data as $booking)
+                        @php
+                            $service = \App\Models\Service::find($booking->service);
+                            $product = \App\Models\Product::find($booking->product);
+                        @endphp
                         <tr>
-                            <td>{{ $booking->service }}</td>
-                            <td>{{ $booking->product }}</td>
+                            <td>{{ $service ? $service->name : 'N/A' }}</td>
+                            <td>{{ $product ? $product->name : 'N/A' }}</td>
                             <td>{{ $booking->color }}</td>
                             <td>{{ $booking->theme }}</td>
                             <td>{{ $booking->event_type }}</td>
                             <td>{{ $booking->date }}</td>
-                            <td>{{ $booking->message }}</td>
-                            <td>{{ $booking->delivery_option }}</td>
-                            <td>{{ $booking->delivery_address }}</td>
+                            <td>{{ $booking->status }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" onclick="showDetails({{ $booking->id }})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -50,6 +56,20 @@
 
 @push('scripts')
     <script>
+        function showDetails(bookingId) {
+            var booking = @json($data).find(b => b.id === bookingId);
+            Swal.fire({
+                title: 'Booking Details',
+                html: `
+                    <p><strong>Message:</strong> ${booking.message || 'N/A'}</p>
+                    <p><strong>Delivery Option:</strong> ${booking.delivery_option || 'N/A'}</p>
+                    <p><strong>Delivery Address:</strong> ${booking.delivery_address || 'N/A'}</p>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Close'
+            });
+        }
+
         $(document).ready(function() {
             $('#dataTable').DataTable();
         });
