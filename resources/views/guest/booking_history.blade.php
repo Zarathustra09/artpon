@@ -43,6 +43,9 @@
                                 <button class="btn btn-primary btn-sm" onclick="showDetails({{ $booking->id }})">
                                     <i class="fas fa-eye"></i>
                                 </button>
+                                <button class="btn btn-info btn-sm" onclick="trackBooking({{ $booking->id }})">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
                             </td>
                         </tr>
                     @endforeach
@@ -68,6 +71,10 @@
                 icon: 'info',
                 confirmButtonText: 'Close'
             });
+        }
+
+        function trackBooking(bookingId) {
+            window.location.href = `/track/${bookingId}`;
         }
 
         $(document).ready(function() {

@@ -78,7 +78,7 @@
             <form id="editBookingForm">
                 <div class="form-group">
                     <label for="color">Color</label>
-                    <input type="text" class="form-control" id="color" name="color" value="${booking.color}">
+                    <input type="color" class="form-control" id="color" name="color" value="${booking.color}">
                 </div>
                 <div class="form-group">
                     <label for="theme">Theme</label>

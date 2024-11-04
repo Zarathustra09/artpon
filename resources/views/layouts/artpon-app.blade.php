@@ -176,6 +176,12 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                @if(auth()->user()->role === 1)
+                                    <li><a class="dropdown-item" href="{{route('artpons.admin.dashboard')}}">Home</a></li>
+
+                                @else
+                                    <li><a class="dropdown-item" href="{{route('artpons.dashboard')}}">Home</a></li>
+                                @endif
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -186,6 +192,8 @@
                                         @csrf
                                     </form>
                                 </li>
+
+
                             </ul>
                         </div>
                     @endguest

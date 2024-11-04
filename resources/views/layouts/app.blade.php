@@ -179,13 +179,13 @@
         <h5>Welcome!</h5>
     </div>
     <a href="{{ route('artpons.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-    <a href="/booking"><i class="fas fa-calendar-check"></i> Book Now</a>
+    <a href="{{route('booking.index')}}"><i class="fas fa-calendar-check"></i> Book Now</a>
 {{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
-    <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="{{route('artpons.contact')}}"><i class="fas fa-envelope"></i> Contact</a>
 {{--    <a href="/service"><i class="fas fa-concierge-bell"></i> Services</a>--}}
-    <a href="/booking_history"><i class="fas fa-history"></i> Booking History</a>
-    <a href="/payment_history"><i class="fas fa-money-check-alt"></i> Payment Records</a>
-    <a href="/track"><i class="fas fa-search"></i> Track Orders</a>
+    <a href="{{route('artpons.booking_history')}}"><i class="fas fa-history"></i> Booking History</a>
+    <a href="{{route('artpons.payment_history')}}"><i class="fas fa-money-check-alt"></i> Payment Records</a>
+
 </div>
 
 <!-- Content -->

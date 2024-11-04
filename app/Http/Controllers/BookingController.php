@@ -81,4 +81,10 @@ class BookingController extends Controller
             return back()->withErrors(['error' => 'An error occurred while creating the booking. Please try again.']);
         }
     }
+
+    public function track($id)
+    {
+        $booking = Booking::with('service', 'product')->findOrFail($id);
+        return view('guest.track', compact('booking'));
+    }
 }

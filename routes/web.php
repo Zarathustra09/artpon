@@ -69,9 +69,6 @@ Route::get('/admin/dashboard', function () {
     return view(view: 'admin.admin_dashboard'); // 'register' corresponds to 'register.blade.php'
 })->name(name: 'artpons.admin.dashboard');
 
-Route::get('/admin/booking', [AdminBookingController::class, 'index'])->name('artpons.admin.booking');
-Route::get('/admin/bookings/{id}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
-Route::put('/admin/bookings/{id}', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
 
 Route::get('/admin/customer', function () {
     return view(view: 'admin.customer');
@@ -96,6 +93,10 @@ Route::get('/admin/customers/data', [AdminCustomerController::class, 'dataTable'
 
 
 //admin booking
+Route::get('/admin/booking', [AdminBookingController::class, 'index'])->name('artpons.admin.booking');
+Route::get('/admin/bookings/{id}/edit', [AdminBookingController::class, 'edit'])->name('admin.bookings.edit');
+Route::put('/admin/bookings/{id}', [AdminBookingController::class, 'update'])->name('admin.bookings.update');
+Route::get('/track/{id}', [BookingController::class, 'track'])->name('track');
 
 Route::get('/admin/payment/index', [AdminPaymentController::class, 'index'])->name('admin.payments.index');
 Route::get('/admin/payment/data', [AdminPaymentController::class, 'dataTable'])->name('admin.payments.data');
