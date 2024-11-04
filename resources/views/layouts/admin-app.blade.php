@@ -179,12 +179,12 @@
         <h5>Welcome!</h5>
     </div>
     <a href="{{route('artpons.admin.dashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-    <a href="{{route('artpons.admin.customer')}}"><i class="fas fa-users"></i> Customer</a>
+    <a href="{{route('admin.customers.index')}}"><i class="fas fa-users"></i> Customer</a>
     {{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
     <a href="{{route('artpons.admin.product')}}"><i class="fas fa-box"></i> Products</a>
     {{--    <a href="/service"><i class="fas fa-concierge-bell"></i> Services</a>--}}
     <a href="{{route('artpons.admin.booking')}}"><i class="fas fa-calendar-alt"></i> Bookings</a>
-    <a href="{{route('artpons.admin.payment')}}"><i class="fas fa-credit-card"></i> Payments</a>
+    <a href="{{route('admin.payments.index')}}"><i class="fas fa-credit-card"></i> Payments</a>
 </div>
 
 <!-- Content -->
@@ -224,7 +224,7 @@
         {{--            <p>Settings content here.</p>--}}
         {{--        </div>--}}
         <div class="box-body">
-            <a href="{{route('artpons.profile')}}" class="btn btn-primary">My Profile</a>
+            <a href="{{route('admin.profile')}}" class="btn btn-primary">My Profile</a>
         </div>
         <div class="box-body">
             <form id="logout-form" action="{{ route('logout') }}" method="POST">

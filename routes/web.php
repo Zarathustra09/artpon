@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\AdminBookingController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -23,6 +27,12 @@ Route::get('/', function () {
     return view(view: 'welcome'); // 'register' corresponds to 'register.blade.php'
 });
 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/dashboard', [GuestController::class, 'index'])->name('artpons.dashboard');
 
 Route::get('/booking_history', [BookingController::class, 'bookingHistoryIndex'])->name('artpons.booking_history');
@@ -34,52 +44,17 @@ Route::post('/booking', [BookingController::class, 'store'])->name('booking.stor
 Route::post('/payment/checkout', [PaymentController::class, 'store'])->name('payment.checkout');
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
-
-Route::get('/contact', function () {
-    return view(view: 'guest.contact'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.contact');
-
-Route::get('/payment', function () {
-    return view(view: 'payment'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.payment');
-
 Route::get('/payment_history', [PaymentController::class, 'index'])->name(name: 'artpons.payment_history');
 
-Route::get('/profile', function () {
-    return view(view: 'guest.profile'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.profile');
-
-Route::get('/service', function () {
-    return view(view: 'guest.service'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.service');
-
-Route::get('/track', function () {
-    return view(view: 'guest.track'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.track');
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+//profile
+Route::get('/profile', [ProfileController::class, 'index'])->name(name: 'artpons.profile');
+Route::put('/profile', [ProfileController::class, 'update'])->name('artpons.profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('artpons.profile.destroy');
 
 
 //admin routes
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('artpons.admin.dashboard');
 
-Route::get('/admin/dashboard', function () {
-    return view(view: 'admin.admin_dashboard'); // 'register' corresponds to 'register.blade.php'
-})->name(name: 'artpons.admin.dashboard');
-
-
-Route::get('/admin/customer', function () {
-    return view(view: 'admin.customer');
-})->name(name: 'artpons.admin.customer');
-
-Route::get('/admin/payment', function () {
-    return view(view: 'admin.payment');
-})->name(name: 'artpons.admin.payment');
-
-
-//admin product
 Route::get('/admin/product', [AdminProductController::class,'index'])->name(name: 'artpons.admin.product');
 Route::get('/admin/products/data', [AdminProductController::class, 'dataTable'])->name('admin.products.data');
 Route::post('/admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
@@ -100,3 +75,9 @@ Route::get('/track/{id}', [BookingController::class, 'track'])->name('track');
 
 Route::get('/admin/payment/index', [AdminPaymentController::class, 'index'])->name('admin.payments.index');
 Route::get('/admin/payment/data', [AdminPaymentController::class, 'dataTable'])->name('admin.payments.data');
+
+
+//admin profile
+Route::get('/admin/profile', [AdminProfileController::class, 'index'])->name('admin.profile');
+Route::put('/admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+Route::delete('/admin/profile', [AdminProfileController::class, 'destroy'])->name('admin.profile.destroy');

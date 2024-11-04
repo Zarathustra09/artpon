@@ -271,7 +271,7 @@
                             <h1 class="display-5 mb-0">Contact Us For Any Queries!</h1>
                         </div>
                         <div class="col-md-6 col-lg-7">
-                            <form method="post" action="{{ route('contact.submit') }}">
+                            <form method="post" action="{{ route('contact.store') }}">
                                 @csrf
                                 <input type="text" name="name" class="w-100 form-control p-3 mb-4 border-primary bg-light" placeholder="Your Name" aria-label="Your Name">
                                 <input type="email" name="email" class="w-100 form-control p-3 mb-4 border-primary bg-light" placeholder="Enter Your Email" aria-label="Your Email">

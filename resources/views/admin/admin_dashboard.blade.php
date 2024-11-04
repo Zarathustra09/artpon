@@ -32,10 +32,10 @@
         var customerChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [{
                     label: 'Customers',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: @json(array_values($usersData)), // Data from the controller
                     backgroundColor: backgroundColor,
                     borderColor: borderColor,
                     borderWidth: 1
@@ -55,10 +55,10 @@
         var productChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [{
-                    label: 'Products',
-                    data: [15, 10, 5, 2, 20, 30],
+                    label: 'Bookings',
+                    data: @json(array_values($bookingsData)), // Data from the controller
                     backgroundColor: backgroundColor,
                     borderColor: borderColor,
                     borderWidth: 1
@@ -78,19 +78,21 @@
         var bookingChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Completed', 'Pending', 'Cancelled'],
+                labels: ['Pending', 'Confirmed', 'Cancelled', 'Completed'],
                 datasets: [{
                     label: 'Bookings',
-                    data: [10, 5, 2],
+                    data: @json(array_values($bookingsByStatus)), // Data from the controller
                     backgroundColor: [
-                        primaryColor,
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
+                        'rgba(255, 206, 86, 0.2)', // Pending
+                        'rgba(75, 192, 192, 0.2)', // Confirmed
+                        'rgba(255, 99, 132, 0.2)', // Cancelled
+                        'rgba(54, 162, 235, 0.2)'  // Completed
                     ],
                     borderColor: [
-                        primaryColor,
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(255, 206, 86, 1)', // Pending
+                        'rgba(75, 192, 192, 1)', // Confirmed
+                        'rgba(255, 99, 132, 1)', // Cancelled
+                        'rgba(54, 162, 235, 1)'  // Completed
                     ],
                     borderWidth: 1
                 }]
@@ -100,29 +102,5 @@
             }
         });
 
-        // Payment Chart
-        var ctx = document.getElementById('paymentChart').getContext('2d');
-        var paymentChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Paid', 'Unpaid'],
-                datasets: [{
-                    label: 'Payments',
-                    data: [8, 4],
-                    backgroundColor: [
-                        backgroundColor,
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        borderColor,
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
     </script>
 @endsection
