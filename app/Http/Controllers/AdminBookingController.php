@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -46,6 +47,15 @@ class AdminBookingController extends Controller
 
         // Log the updated booking
         Log::info('Updated booking: ', $booking->toArray());
+
+        // Check if the status is one of the specified values
+        if (in_array($booking->status, ['pending', 'confirmed', 'cancelled', 'completed'])) {
+            // Create a new notification for the booking's user
+            Notification::create([
+                'user_id' => $booking->user_id,
+                'message' => 'Your booking status has been updated to ' . $booking->status . '.',
+            ]);
+        }
 
         return response()->json(['message' => 'Booking updated successfully']);
     }

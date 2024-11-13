@@ -181,7 +181,7 @@
     <a href="{{ route('artpons.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
     <a href="{{route('booking.index')}}"><i class="fas fa-calendar-check"></i> Book Now</a>
 {{--    <a href="/profile"><i class="fas fa-user"></i> My Profile</a>--}}
-    <a href="{{route('artpons.contact')}}"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="{{route('contact')}}"><i class="fas fa-envelope"></i> Contact</a>
 {{--    <a href="/service"><i class="fas fa-concierge-bell"></i> Services</a>--}}
     <a href="{{route('artpons.booking_history')}}"><i class="fas fa-history"></i> Booking History</a>
     <a href="{{route('artpons.payment_history')}}"><i class="fas fa-money-check-alt"></i> Payment Records</a>
@@ -214,7 +214,19 @@
     <div class="box" id="notificationsBox">
         <div class="box-header">Notifications</div>
         <div class="box-body">
-            <p>No new notifications.</p>
+            @php
+                $notifications = \App\Models\Notification::where('user_id', \Illuminate\Support\Facades\Auth::id())->latest()->take(3)->get();
+            @endphp
+
+            @if($notifications->isEmpty())
+                <p>No new notifications.</p>
+            @else
+                <ul>
+                    @foreach($notifications as $notification)
+                        <li>{{ $notification->message }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 

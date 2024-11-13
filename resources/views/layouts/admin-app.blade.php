@@ -213,7 +213,24 @@
     <div class="box" id="notificationsBox">
         <div class="box-header">Notifications</div>
         <div class="box-body">
-            <p>No new notifications.</p>
+            @php
+                $notifications = \App\Models\Notification::join('users', 'notifications.user_id', '=', 'users.id')
+                    ->select('notifications.message', 'users.name')
+                    ->where('notifications.user_id', \Illuminate\Support\Facades\Auth::id())
+                    ->latest('notifications.created_at')
+                    ->take(3)
+                    ->get();
+            @endphp
+
+            @if($notifications->isEmpty())
+                <p>No new notifications.</p>
+            @else
+                <ul>
+                    @foreach($notifications as $notification)
+                        <li>{{ $notification->name }}: {{ $notification->message }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 

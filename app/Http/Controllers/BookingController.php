@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -37,7 +38,6 @@ class BookingController extends Controller
             'delivery_option' => 'required|in:Pickup,Deliver',
             'delivery_address' => 'nullable|string',
             'price' => 'required|numeric',
-
         ]);
 
         $service = Service::find($request->input('service'));
@@ -64,6 +64,12 @@ class BookingController extends Controller
             ]);
 
             $booking->save();
+
+            // Create a new notification
+            Notification::create([
+                'user_id' => Auth::id(),
+                'message' => 'Your booking has been created successfully.',
+            ]);
 
             session([
                 'total' => $request->input('price'),
